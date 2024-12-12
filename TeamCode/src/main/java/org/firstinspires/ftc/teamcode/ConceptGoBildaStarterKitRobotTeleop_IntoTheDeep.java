@@ -22,15 +22,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 /*
  * This OpMode is an example driver-controlled (TeleOp) mode for the goBILDA 2024-2025 FTC
@@ -76,8 +69,8 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
     public DcMotor  rightFrontDrive  = null; //the right front drivetrain motor
     public DcMotor  rightBackDrive  = null; //the right back drivetrain motor
     public DcMotor  leftBackDrive  = null; //the left back drivetrain motor
-    public DcMotor  armLeft    = null; //the left arm motor
-    public DcMotor  armRight    = null; //the left arm motor
+//    public DcMotor  armLeft    = null; //the left arm motor
+//    public DcMotor  armRight    = null; //the left arm motor
 
 
     /* This constant is the number of encoder ticks for each degree of rotation of the arm.
@@ -160,8 +153,8 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive"); //the right front drivetrain motor
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive"); //the left drivetrain motor
         rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_drive"); //the left drivetrain motor
-        armLeft  = hardwareMap.get(DcMotor.class, "left_arm"); //the left drivetrain motor
-        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
+//        armLeft  = hardwareMap.get(DcMotor.class, "left_arm"); //the left drivetrain motor
+//        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
 //        armMotor   = hardwareMap.get(DcMotor.class, "left_arm"); //the arm motor
 
 
@@ -172,8 +165,8 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        armLeft.setDirection(DcMotor.Direction.FORWARD);
-        armRight.setDirection(DcMotor.Direction.REVERSE);
+//        armLeft.setDirection(DcMotor.Direction.FORWARD);
+//        armRight.setDirection(DcMotor.Direction.REVERSE);
 
         /* Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to slow down
         much faster when it is coasting. This creates a much more controllable drivetrain. As the robot
@@ -215,7 +208,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
             /* Set the drive and turn variables to follow the joysticks on the gamepad.
             the joysticks decrease as you push them up. So reverse the Y axis. */
             forward = gamepad1.left_stick_y;
-//            strafe = -gamepad1.left_stick_x;
+            strafe = -gamepad1.left_stick_x;
             rotate  = -gamepad1.right_stick_x;
 
 
@@ -242,10 +235,10 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
                 speedLimit = 2;
             }
 
-            RFPower = rotate - (forward + rotate);
-            LFPower = rotate + (forward + rotate);
-            RBPower = rotate + (forward - rotate);
-            LBPower = rotate - (forward - rotate);
+            RFPower = rotate - (forward - strafe);
+            LFPower = rotate + (forward + strafe);
+            RBPower = rotate + (forward - strafe);
+            LBPower = rotate - (forward + strafe);
 
             rightFrontDrive.setPower(RFPower/speedLimit);
             leftFrontDrive.setPower(LFPower/speedLimit);
@@ -259,8 +252,8 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
             if (gamepad1.left_trigger > 0 || gamepad1.right_trigger > 0) {
                 armPower = gamepad1.right_trigger - gamepad1.left_trigger;
             }
-            armLeft.setPower(armPower/2);
-            armRight.setPower(armPower/2);
+//            armLeft.setPower(armPower/2);
+//            armRight.setPower(armPower/2);
 
 
 
