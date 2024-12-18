@@ -80,7 +80,41 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        /*
+        Forward 3s
+        Turn for 1 sec
+        Forward 3s again
 
+        Turn 90,
+        Forward 3s
+
+        int speed = 5;
+        waitForStart();
+        leftDrive.setPower(speed);
+        rightDrive.setPower(speed);
+
+        while(opModeIsActive() and (runtime.seconds() < 3.0)) {
+            sleep(0.1);
+        }
+
+        runtime.reset();
+
+        leftDrive.setPower(5);
+        rightDrive.setPower(-5);
+        while(opModeIsActive() and runtime.seconds() < 1.0) {
+            sleep(0.1);
+        }
+
+        runtime.reset();
+
+        leftDrive.setPower(speed);
+        rightDrive.setPower(speed);
+        
+        while(opModeIsActive() and (runtime.seconds() < 3.0)) {
+            sleep(0.1);
+        }
+
+         */
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -116,8 +150,10 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
             telemetry.addData("Path", "Leg 3: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
-        // Step 4:  Stop
+        // step 4:
+        leftDrive.setPower(5);
+        rightDrive.se
+        // Step 5:  Stop
         leftDrive.setPower(0);
         rightDrive.setPower(0);
 
