@@ -152,7 +152,7 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         }
         // step 4:
         leftDrive.setPower(5);
-        rightDrive.se
+        rightDrive.setPower(5);
         // Step 5:  Stop
         leftDrive.setPower(0);
         rightDrive.setPower(0);

@@ -69,7 +69,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
     public DcMotor  rightFrontDrive  = null; //the right front drivetrain motor
     public DcMotor  rightBackDrive  = null; //the right back drivetrain motor
     public DcMotor  leftBackDrive  = null; //the left back drivetrain motor
-//    public DcMotor  armLeft    = null; //the left arm motor
+    public DcMotor  armMotor    = null; //the arm motor
 //    public DcMotor  armRight    = null; //the left arm motor
 
 
@@ -153,7 +153,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive"); //the right front drivetrain motor
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive"); //the left drivetrain motor
         rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_drive"); //the left drivetrain motor
-//        armLeft  = hardwareMap.get(DcMotor.class, "left_arm"); //the left drivetrain motor
+        armMotor  = hardwareMap.get(DcMotor.class, "arm_motor"); //the arm motor
 //        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
 //        armMotor   = hardwareMap.get(DcMotor.class, "left_arm"); //the arm motor
 
@@ -164,6 +164,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
 
 //        armLeft.setDirection(DcMotor.Direction.FORWARD);
 //        armRight.setDirection(DcMotor.Direction.REVERSE);
@@ -254,8 +255,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
             }
 //            armLeft.setPower(armPower/2);
 //            armRight.setPower(armPower/2);
-
-
+            armMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
 
 
             /* Here we handle the three buttons that have direct control of the intake speed.
