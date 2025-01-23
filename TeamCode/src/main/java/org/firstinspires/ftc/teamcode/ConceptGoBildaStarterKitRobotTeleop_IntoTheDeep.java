@@ -24,6 +24,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 /*
  * This OpMode is an example driver-controlled (TeleOp) mode for the goBILDA 2024-2025 FTC
@@ -70,7 +72,8 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
     public DcMotor  rightBackDrive  = null; //the right back drivetrain motor
     public DcMotor  leftBackDrive  = null; //the left back drivetrain motor
     public DcMotor  armMotor    = null; //the arm motor
-//    public DcMotor  armRight    = null; //the left arm motor
+    public DcMotor  VSlide   = null; //the left arm motor
+    public CRServo intake = null;
 
 
     /* This constant is the number of encoder ticks for each degree of rotation of the arm.
@@ -154,9 +157,9 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive"); //the left drivetrain motor
         rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_drive"); //the left drivetrain motor
         armMotor  = hardwareMap.get(DcMotor.class, "arm_motor"); //the arm motor
+        VSlide = hardwareMap.get(DcMotor.class, "Vslide");
+        intake = hardwareMap.get(CRServo.class, "intake");
 //        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
-//        armMotor   = hardwareMap.get(DcMotor.class, "left_arm"); //the arm motor
-
 
         /* Most skid-steer/differential drive robots require reversing one motor to drive forward.
         for this robot, we reverse the right motor.*/
@@ -165,6 +168,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         armMotor.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(CRServo.Direction.FORWARD);
 
 //        armLeft.setDirection(DcMotor.Direction.FORWARD);
 //        armRight.setDirection(DcMotor.Direction.REVERSE);
@@ -249,13 +253,15 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
 //            leftFrontDrive.spin(forward);
 //            rightBackDrive.spin(forward);
 //            leftBackDrive.spin(forward);
-            armPower = 0;
-            if (gamepad1.left_trigger > 0 || gamepad1.right_trigger > 0) {
-                armPower = gamepad1.right_trigger - gamepad1.left_trigger;
-            }
-//            armLeft.setPower(armPower/2);
-//            armRight.setPower(armPower/2);
+
             armMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
+            if (gamepad1.left_bumper && !gamepad1.right_bumper) {
+                VSlide.setPower(1);
+            } else if (gamepad1.right_bumper && !gamepad1.left_bumper) {
+                VSlide.setPower(-1);
+            } if (false) { // encoder stop
+                VSlide.setPower(0);
+            }
 
 
             /* Here we handle the three buttons that have direct control of the intake speed.
@@ -274,14 +280,14 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
 
 
             if (gamepad1.b) {
-//                intake.setPower(INTAKE_DEPOSIT);
+                intake.setPower(-1);
             }
             else {
-//                intake.setPower(INTAKE_OFF);
+                intake.setPower(0);
             }
 
             if (gamepad1.x) {
-                killSwitch = true;
+//                killSwitch = true;
             }
 
 
