@@ -24,6 +24,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 
@@ -157,16 +158,20 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive"); //the left drivetrain motor
         rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_drive"); //the left drivetrain motor
         armMotor  = hardwareMap.get(DcMotor.class, "arm_motor"); //the arm motor
-        VSlide = hardwareMap.get(DcMotor.class, "Vslide");
+        VSlide = hardwareMap.get(DcMotor.class, "vslide");
         intake = hardwareMap.get(CRServo.class, "intake");
 //        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
 
         /* Most skid-steer/differential drive robots require reversing one motor to drive forward.
         for this robot, we reverse the right motor.*/
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(CRServo.Direction.FORWARD);
 
@@ -208,13 +213,13 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         waitForStart();
 
         /* Run until the driver presses stop */
-        while (opModeIsActive() && !killSwitch) {
+        while (opModeIsActive()) {
 
             /* Set the drive and turn variables to follow the joysticks on the gamepad.
             the joysticks decrease as you push them up. So reverse the Y axis. */
             forward = gamepad1.left_stick_y;
             strafe = -gamepad1.left_stick_x;
-            rotate  = -gamepad1.right_stick_x;
+            rotate  = gamepad1.right_stick_x;
 
 
             /* Here we "mix" the input channels together to find the power to apply to each motor.
@@ -223,20 +228,15 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
             the right and left motors need to move in opposite directions. So we will add rotate to
             forward for the left motor, and subtract rotate from forward for the right motor. */
 
-//            left  = forward + rotate;
-//            right = forward - rotate;
-//
-//            /* Normalize the values so neither exceed +/- 1.0 */
-//            max = Math.max(Math.abs(left), Math.abs(right));
-//            if (max > 1.0)
-//            {
-//                left /= max;
-//                right /= max;
+            RFPower = forward - strafe + rotate;
+            LFPower = forward + strafe - rotate;
+            RBPower = forward + strafe + rotate;
+            LBPower = forward - strafe - rotate;
 
-            RFPower = rotate - (forward - strafe);
-            LFPower = rotate + (forward + strafe);
-            RBPower = rotate + (forward - strafe);
-            LBPower = rotate - (forward + strafe);
+//            RFPower = rotate - (forward - strafe);
+//            LFPower = rotate + (forward + strafe);
+//            RBPower = rotate + (forward - strafe);
+//            LBPower = rotate - (forward + strafe);
 
             rightFrontDrive.setPower(RFPower/2);
             leftFrontDrive.setPower(LFPower/2);
@@ -248,7 +248,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
                 VSlide.setPower(1);
             } else if (gamepad1.right_bumper && !gamepad1.left_bumper) {
                 VSlide.setPower(-1);
-            } if (false) { // encoder stop
+            } else { // add encoder stop above else statement
                 VSlide.setPower(0);
             }
 
@@ -270,14 +270,12 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
 
             if (gamepad1.b) {
                 intake.setPower(-1);
-            }
-            else {
+            } else if (gamepad1.a) {
+                intake.setPower(1);
+            } else {
                 intake.setPower(0);
             }
 
-            if (gamepad1.x) {
-//                killSwitch = true;
-            }
 
 
             /* Here we create a "fudge factor" for the arm position.
