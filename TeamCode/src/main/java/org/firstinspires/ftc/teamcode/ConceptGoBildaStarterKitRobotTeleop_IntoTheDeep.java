@@ -232,27 +232,16 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
 //            {
 //                left /= max;
 //                right /= max;
-//            }
-
-            if (gamepad1.a) {
-                speedLimit = 1;
-            } else {
-                speedLimit = 2;
-            }
 
             RFPower = rotate - (forward - strafe);
             LFPower = rotate + (forward + strafe);
             RBPower = rotate + (forward - strafe);
             LBPower = rotate - (forward + strafe);
 
-            rightFrontDrive.setPower(RFPower/speedLimit);
-            leftFrontDrive.setPower(LFPower/speedLimit);
-            rightBackDrive.setPower(RBPower/speedLimit);
-            leftBackDrive.setPower(LBPower/speedLimit);
-//            rightFrontDrive.spin(forward);
-//            leftFrontDrive.spin(forward);
-//            rightBackDrive.spin(forward);
-//            leftBackDrive.spin(forward);
+            rightFrontDrive.setPower(RFPower/2);
+            leftFrontDrive.setPower(LFPower/2);
+            rightBackDrive.setPower(RBPower/2);
+            leftBackDrive.setPower(LBPower/2);
 
             armMotor.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
             if (gamepad1.left_bumper && !gamepad1.right_bumper) {
