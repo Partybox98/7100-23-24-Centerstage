@@ -124,32 +124,21 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
     double armPosition = (int)ARM_COLLAPSED_INTO_ROBOT;
     double armPositionFudgeFactor;
 
-
-    boolean killSwitch = false;
-
     /*must delete one of these methods can only be one with the same name also this
     method can't be defined in another method but can be defined inside this class
      */
     @Override
     public void runOpMode() {
-        /*
-        These variables are private to the OpMode, and are used to control the drivetrain.
-         */
-        double left;
-        double right;
+
         double forward;
         double strafe;
         double rotate;
-        double max;
 
         double RFPower;
         double LFPower;
         double RBPower;
         double LBPower;
 
-        double speedLimit = 1;
-
-        double armPower;
 
 
         /* Define and Initialize Motors */
@@ -160,10 +149,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         armMotor  = hardwareMap.get(DcMotor.class, "arm_motor"); //the arm motor
         VSlide = hardwareMap.get(DcMotor.class, "vslide");
         intake = hardwareMap.get(CRServo.class, "intake");
-//        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
 
-        /* Most skid-steer/differential drive robots require reversing one motor to drive forward.
-        for this robot, we reverse the right motor.*/
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -174,9 +160,6 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(CRServo.Direction.FORWARD);
-
-//        armLeft.setDirection(DcMotor.Direction.FORWARD);
-//        armRight.setDirection(DcMotor.Direction.REVERSE);
 
         /* Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to slow down
         much faster when it is coasting. This creates a much more controllable drivetrain. As the robot
