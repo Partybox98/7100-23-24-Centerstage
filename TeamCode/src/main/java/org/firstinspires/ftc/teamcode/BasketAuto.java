@@ -57,7 +57,8 @@ public class BasketAuto extends RobotLinearOpMode {
         armMotor  = hardwareMap.get(DcMotor.class, "arm_motor"); //the arm motor
         VSlide = hardwareMap.get(DcMotor.class, "vslide");
         intake = hardwareMap.get(CRServo.class, "intake");
-         waitForStart();
+
+        waitForStart();
 
          while(opModeIsActive()){
              encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD);
