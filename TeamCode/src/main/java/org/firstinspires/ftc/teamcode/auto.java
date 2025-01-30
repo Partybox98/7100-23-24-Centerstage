@@ -147,7 +147,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
                     telemetry.addData("Path", "Leg 3: %4.1f S Elapsed", runtime.seconds());
                     telemetry.update();
                     // Step 5:  Stop
-                    leftFrontDrive.setPower(0)
+                    leftFrontDrive.setPower(0);
                     rightFrontDrive.setPower(0);
                     leftFrontDrive.setPower(0);
                     rightFrontDrive.setPower(0);
