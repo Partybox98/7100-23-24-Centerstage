@@ -53,6 +53,18 @@ public abstract class RobotLinearOpMode extends LinearOpMode {
     public CRServo intake = null;
     private ElapsedTime runtime = new ElapsedTime();
 
+    DcMotor rightFrontDriveMotor;
+    DcMotor leftFrontDriveMotor;
+    DcMotor rightBackDriveMotor;
+    DcMotor leftBackDriveMotor;
+    NormalizedColorSensor colorSensor;
+    AprilTagProcessor aprilTag;
+    VisionPortal visionPortal;
+    boolean USE_WEBCAM = false;  // true for webcam, false for phone camera
+    boolean placingPixel = false;
+    boolean searching;
+    boolean aTagSeen = false;
+
 
     public void encoderDrive(double power, double inches, MOVEMENT_DIRECTION movement_direction) {
 
