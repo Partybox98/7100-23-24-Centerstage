@@ -69,6 +69,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
     public DcMotor  rightFrontDrive  = null; //the right front drivetrain motor
     public DcMotor  rightBackDrive  = null; //the right back drivetrain motor
     public DcMotor  leftBackDrive  = null; //the left back drivetrain motor
+    public DcMotor  armMotor = null;
 //    public DcMotor  armLeft    = null; //the left arm motor
 //    public DcMotor  armRight    = null; //the left arm motor
 
@@ -153,6 +154,7 @@ public class ConceptGoBildaStarterKitRobotTeleop_IntoTheDeep extends RobotLinear
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive"); //the right front drivetrain motor
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive"); //the left drivetrain motor
         rightBackDrive  = hardwareMap.get(DcMotor.class, "right_back_drive"); //the left drivetrain motor
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 //        armLeft  = hardwareMap.get(DcMotor.class, "left_arm"); //the left drivetrain motor
 //        armRight  = hardwareMap.get(DcMotor.class, "right_arm"); //the left drivetrain motor
 //        armMotor   = hardwareMap.get(DcMotor.class, "left_arm"); //the arm motor
