@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -58,10 +59,10 @@ public class BasketAuto extends RobotLinearOpMode {
         VSlide = hardwareMap.get(DcMotor.class, "vslide");
         intake = hardwareMap.get(CRServo.class, "intake");
 
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -77,9 +78,9 @@ public class BasketAuto extends RobotLinearOpMode {
 
          while(opModeIsActive()){
 
-             encoderDrive(FORWARD_SPEED, 15, MOVEMENT_DIRECTION.REVERSE); // drive to basket
-             encoderDrive(FORWARD_SPEED, 5, MOVEMENT_DIRECTION.STRAFE_RIGHT); // strafe
-//             encoderTurn(TURN_SPEED,45, TURN_DIRECTION.TURN_RIGHT); // turn to face
+             encoderDrive(FORWARD_SPEED, 15, MOVEMENT_DIRECTION.FORWARD); // drive to basket
+             encoderDrive(FORWARD_SPEED, 5, MOVEMENT_DIRECTION.STRAFE_LEFT); // strafe
+//             encoderTurn(TURN_SPEED, 45, TURN_DIRECTION.TURN_LEFT); // turn to face
 //             encoderDrive(FORWARD_SPEED, 1, MOVEMENT_DIRECTION.REVERSE); // drive to basket
 ////
 //             armMotor.setPower(0.3);// raise arm
