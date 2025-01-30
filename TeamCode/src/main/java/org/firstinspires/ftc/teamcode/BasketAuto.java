@@ -27,7 +27,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Robot: Auto Drive By Time", group="Robot")
+@Autonomous(name="Robot: Basket Auto", group="Robot")
 
 public class BasketAuto extends RobotLinearOpMode {
 
@@ -58,6 +58,17 @@ public class BasketAuto extends RobotLinearOpMode {
         VSlide = hardwareMap.get(DcMotor.class, "vslide");
         intake = hardwareMap.get(CRServo.class, "intake");
 
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(CRServo.Direction.FORWARD);
+
         waitForStart();
 
 //             encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD);
@@ -66,33 +77,35 @@ public class BasketAuto extends RobotLinearOpMode {
 
          while(opModeIsActive()){
 
-             encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD); // drive to basket
-             encoderDrive(0.5, 1, MOVEMENT_DIRECTION.STRAFE_RIGHT); // strafe
-             encoderTurn(0.5,45, TURN_DIRECTION.TURN_LEFT); // turn to face
-
-             armMotor.setPower(0.3);// raise arm
-             runtime.reset();
-             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
-                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-                 telemetry.update();
-             }
-             armMotor.setPower(0);
-
-             intake.setPower(-1);// output sample in basket
-             runtime.reset();
-             while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-                 telemetry.update();
-             }
-             intake.setPower(0);// turn output off
-
-             armMotor.setPower(-0.3);// retract arm
-             runtime.reset();
-             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
-                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-                 telemetry.update();
-             }
-             armMotor.setPower(0);
+             encoderDrive(FORWARD_SPEED, 15, MOVEMENT_DIRECTION.REVERSE); // drive to basket
+             encoderDrive(FORWARD_SPEED, 5, MOVEMENT_DIRECTION.STRAFE_RIGHT); // strafe
+//             encoderTurn(TURN_SPEED,45, TURN_DIRECTION.TURN_RIGHT); // turn to face
+//             encoderDrive(FORWARD_SPEED, 1, MOVEMENT_DIRECTION.REVERSE); // drive to basket
+////
+//             armMotor.setPower(0.3);// raise arm
+//             runtime.reset();
+//             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+//                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+//                 telemetry.update();
+//             }
+//             armMotor.setPower(0);
+//
+//             intake.setPower(-1);// output sample in basket
+//             runtime.reset();
+//             while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+//                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+//                 telemetry.update();
+//             }
+//             intake.setPower(0);// turn output off
+//
+//             armMotor.setPower(-0.3);// retract arm
+//             runtime.reset();
+//             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+//                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+//                 telemetry.update();
+//             }
+//             armMotor.setPower(0);
+             sleep(30000);
          }
     }
 }
