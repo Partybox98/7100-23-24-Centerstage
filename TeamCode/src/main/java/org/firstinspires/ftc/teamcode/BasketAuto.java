@@ -60,10 +60,39 @@ public class BasketAuto extends RobotLinearOpMode {
 
         waitForStart();
 
+//             encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD);
+//             encoderTurn(0.5, 180, TURN_DIRECTION.TURN_LEFT);
+//             encoderSlideUp(0.5, 3, MOVEMENT_DIRECTION.FORWARD);
+
          while(opModeIsActive()){
-             encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD);
-             encoderTurn(0.5, 180, TURN_DIRECTION.TURN_LEFT);
-             encoderSlideUp(0.5, 3, MOVEMENT_DIRECTION.FORWARD);
+
+             encoderDrive(0.5, 10, MOVEMENT_DIRECTION.FORWARD); // drive to basket
+             encoderDrive(0.5, 1, MOVEMENT_DIRECTION.STRAFE_RIGHT); // strafe
+             encoderTurn(0.5,45, TURN_DIRECTION.TURN_LEFT); // turn to face
+
+             armMotor.setPower(0.3);// raise arm
+             runtime.reset();
+             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+                 telemetry.update();
+             }
+             armMotor.setPower(0);
+
+             intake.setPower(-1);// output sample in basket
+             runtime.reset();
+             while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+                 telemetry.update();
+             }
+             intake.setPower(0);// turn output off
+
+             armMotor.setPower(-0.3);// retract arm
+             runtime.reset();
+             while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+                 telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+                 telemetry.update();
+             }
+             armMotor.setPower(0);
          }
     }
 }
